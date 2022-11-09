@@ -1,0 +1,15 @@
+FROM node:alpine
+
+# create app directory
+WORKDIR /app
+
+# install dependencies
+COPY package*.json ./
+
+RUN npm install
+
+# bundle app source
+COPY . ./
+
+CMD ["npm", "start"]
+

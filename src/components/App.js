@@ -8,7 +8,7 @@ function App() {
         <ChakraProvider theme={theme}>
             <Container>
                 <header>
-                    <Heading color='brand.100'>Projects</Heading>
+                    <Heading color='brand.100'>Projects test</Heading>
                 </header>
             </Container>
         </ChakraProvider>
