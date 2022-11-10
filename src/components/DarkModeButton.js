@@ -12,6 +12,7 @@ export const DarkModeButton = () => {
                     : 'Switch to dark mode'
             }
             variant='ghost'
+            color='gray.400'
             icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
             onClick={toggleColorMode}
             size='lg'
