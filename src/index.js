@@ -6,7 +6,9 @@ import { ColorModeScript, ChakraProvider } from '@chakra-ui/react';
 import theme from './theme';
 
 import App from './components/App';
-// import reducers from './reducers';
+import { fetchProjects } from './features/projects/projectsSlice';
+
+store.dispatch(fetchProjects());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
