@@ -1,5 +1,6 @@
 import { Heading, Flex, Link, Stack, Box } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 import { AiFillGithub } from 'react-icons/ai';
 import DarkModeButton from './DarkModeButton';
 
@@ -14,7 +15,11 @@ function Header() {
             justifyContent='center'
         >
             <Box px='2rem' alignItems='center'>
-                <Heading as='h1'>Projects</Heading>
+                <Heading as='h1'>
+                    <Link as={RouterLink} to='/'>
+                        Projects
+                    </Link>
+                </Heading>
             </Box>
             <Stack direction='row' spacing={4} alignItems='center'>
                 <Link

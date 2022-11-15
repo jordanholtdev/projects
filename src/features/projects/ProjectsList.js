@@ -8,6 +8,7 @@ import {
 import { SimpleGrid, Image, Box, Heading, Tag, HStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import ProjectTags from './ProjectTags';
+import { Link } from 'react-router-dom';
 
 const ProjectsList = () => {
     const dispatch = useDispatch();
@@ -32,10 +33,18 @@ const ProjectsList = () => {
                 <SimpleGrid columns={[1, 1, 2]} spacing={10}>
                     {projects.map((project) => (
                         <Box key={project.fields.projectTitle}>
-                            <Image
-                                borderRadius='md'
-                                src={project.fields.coverImage.fields.file.url}
-                            />
+                            <Link
+                                to={`/projects/${project.fields.projectSlug}`}
+                                state={project}
+                            >
+                                <Image
+                                    borderRadius='md'
+                                    src={
+                                        project.fields.coverImage.fields.file
+                                            .url
+                                    }
+                                />
+                            </Link>
                             <HStack pt='1rem' spacing='24px'>
                                 {project.fields.projectTags
                                     .slice(0, 4)
