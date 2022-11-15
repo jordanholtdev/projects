@@ -3,7 +3,7 @@ import { Flex, Box, Stack, Divider, Link } from '@chakra-ui/react';
 function Footer() {
     const year = new Date().getFullYear();
     return (
-        <Flex as='footer' pt='4rem' pb='2rem' role='contentinfo'>
+        <Flex as='footer' pt='4rem' pb='2rem' role='contentinfo' mt='auto'>
             <Stack>
                 <Divider borderColor='gray.200' />
                 <Box
