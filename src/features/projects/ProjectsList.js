@@ -5,9 +5,20 @@ import {
     selectAllProjects,
     fetchTags,
 } from './projectsSlice';
-import { SimpleGrid, Image, Box, Heading, Tag, HStack } from '@chakra-ui/react';
+import {
+    SimpleGrid,
+    Image,
+    Box,
+    Heading,
+    Tag,
+    HStack,
+    CircularProgress,
+    Flex,
+    Center,
+} from '@chakra-ui/react';
 import { useEffect } from 'react';
 import ProjectTags from './ProjectTags';
+import Loading from '../../components/Loading';
 import { Link } from 'react-router-dom';
 
 const ProjectsList = () => {
@@ -23,7 +34,13 @@ const ProjectsList = () => {
 
     let content;
     if (projectsLoadingStatus === 'pending') {
-        content = <p>Loading...</p>;
+        content = (
+            <Flex justify='center' h='75vh'>
+                <Center>
+                    <CircularProgress h='100%' />
+                </Center>
+            </Flex>
+        );
     } else if (projectsLoadingStatus === 'succeeded') {
         content = (
             <>
@@ -43,6 +60,7 @@ const ProjectsList = () => {
                                         project.fields.coverImage.fields.file
                                             .url
                                     }
+                                    fallback={<Loading />}
                                 />
                             </Link>
                             <HStack pt='1rem' spacing='24px'>
