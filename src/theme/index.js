@@ -1,6 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 import { mode } from '@chakra-ui/theme-tools';
 import Button from './components/ButtonStyles';
+import Link from './components/LinkStyles';
 
 // 2. Add your color mode config
 const config = {
@@ -78,6 +79,30 @@ const styles = {
             color: mode('gray.800', 'whiteAlpha.900')(props),
             bg: mode('#ffffff', '#000000')(props),
         },
+        ul: {
+            paddingInlineStart: '20px',
+        },
+        h2: {
+            display: 'block',
+            fontSize: '1.5em',
+            marginBlockStart: '0.83em',
+            marginBlockEnd: '0.83em',
+            marginInlineStart: '0px',
+            marginInlineEnd: '0px',
+            fontWeight: 'bold',
+        },
+        h3: {
+            display: 'block',
+            fontSize: '1.17em',
+            marginBlockStart: '1em',
+            marginBlockEnd: '1em',
+            marginInlineStart: '0px',
+            marginInlineEnd: '0px',
+            fontWeight: 'bold',
+        },
+        a: {
+            color: '#58a6ff',
+        },
     }),
 };
 
@@ -87,7 +112,7 @@ const theme = extendTheme({
     colors,
     styles,
     fonts,
-    components: { Button },
+    components: { Button, Link },
 });
 
 export default theme;
