@@ -31,6 +31,7 @@ const ProjectsList = () => {
 
     const projects = useSelector(selectAllProjects);
     const projectsLoadingStatus = useSelector(getProjectsLoadingStatus);
+    const tagColor = ['blue.500', 'purple.500', 'yellow.500', 'brand.green'];
 
     let content;
     if (projectsLoadingStatus === 'pending') {
@@ -44,45 +45,47 @@ const ProjectsList = () => {
     } else if (projectsLoadingStatus === 'succeeded') {
         content = (
             <>
-                <Box py={10}>
-                    <ProjectTags />
-                </Box>
-                <SimpleGrid columns={[1, 1, 2]} spacing={10}>
-                    {projects.map((project) => (
-                        <Box key={project.fields.projectTitle}>
-                            <Link
-                                to={`/projects/${project.fields.projectSlug}`}
-                                state={project}
-                            >
-                                <Image
-                                    borderRadius='md'
-                                    src={
-                                        project.fields.coverImage.fields.file
-                                            .url
-                                    }
-                                    fallback={<Loading />}
-                                />
-                            </Link>
-                            <HStack pt='1rem' spacing='24px'>
-                                {project.fields.projectTags
-                                    .slice(0, 4)
-                                    .map((tag) => (
-                                        <Tag
-                                            key={tag.fields.name}
-                                            variant='outline'
-                                            colorScheme='blue'
-                                            size='sm'
-                                        >
-                                            {tag.fields.name}
-                                        </Tag>
-                                    ))}
-                            </HStack>
-                            <Heading as='h2' size='md' pt='1.125rem'>
-                                {project.fields.projectTitle}
-                            </Heading>
-                        </Box>
-                    ))}
-                </SimpleGrid>
+                <Flex>
+                    <Box mr={[5, 10, 20]}>
+                        <ProjectTags />
+                    </Box>
+                    <SimpleGrid columns={[1, 1, 2]} spacing={10}>
+                        {projects.map((project) => (
+                            <Box key={project.fields.projectTitle}>
+                                <Link
+                                    to={`/projects/${project.fields.projectSlug}`}
+                                    state={project}
+                                >
+                                    <Image
+                                        borderRadius='md'
+                                        src={
+                                            project.fields.coverImage.fields
+                                                .file.url
+                                        }
+                                        fallback={<Loading />}
+                                    />
+                                </Link>
+                                <HStack pt='1rem' spacing='4px'>
+                                    {project.fields.projectTags
+                                        .slice(0, 4)
+                                        .map((tag, i) => (
+                                            <Tag
+                                                key={tag.fields.name}
+                                                variant='ghost'
+                                                size='sm'
+                                                color={tagColor[i]}
+                                            >
+                                                {tag.fields.name}
+                                            </Tag>
+                                        ))}
+                                </HStack>
+                                <Heading as='h2' size='md'>
+                                    {project.fields.projectTitle}
+                                </Heading>
+                            </Box>
+                        ))}
+                    </SimpleGrid>
+                </Flex>
             </>
         );
     } else if (projectsLoadingStatus === 'failed') {

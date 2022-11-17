@@ -4,12 +4,13 @@ import {
     fetchProjectsByTag,
     selectTags,
 } from './projectsSlice';
-import { Button, Box } from '@chakra-ui/react';
+import { Button, useColorModeValue, VStack } from '@chakra-ui/react';
 
 const ProjectTags = () => {
     const dispatch = useDispatch();
     const tags = useSelector(selectTags);
     const projectsLoadingStatus = useSelector(getProjectsLoadingStatus);
+    const hover = useColorModeValue('yellow.100', 'yellow.600');
 
     let content;
 
@@ -18,7 +19,7 @@ const ProjectTags = () => {
     } else if (projectsLoadingStatus === 'succeeded') {
         content = (
             <div>
-                <Box>
+                <VStack alignItems='flex-start'>
                     <Button
                         variant='primary'
                         size='sm'
@@ -28,7 +29,11 @@ const ProjectTags = () => {
                     </Button>
                     {tags.map((tag) => (
                         <Button
-                            variant='ghost'
+                            variant='outline'
+                            _hover={{
+                                borderColor: 'brand.yellow',
+                                bg: hover,
+                            }}
                             size='sm'
                             key={tag.sys.id}
                             onClick={() =>
@@ -38,7 +43,7 @@ const ProjectTags = () => {
                             {tag.fields.name}
                         </Button>
                     ))}
-                </Box>
+                </VStack>
             </div>
         );
     } else if (projectsLoadingStatus === 'failed') {

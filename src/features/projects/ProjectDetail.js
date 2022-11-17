@@ -9,7 +9,6 @@ import {
     Image,
     Link,
     HStack,
-    Stack,
     useColorModeValue,
     SimpleGrid,
     Tag,
@@ -27,7 +26,9 @@ marked.setOptions({
 function ProjectDetail() {
     let project = useLocation();
     const hover = useColorModeValue('gray.500', 'yellow.600');
+    const tagHover = useColorModeValue('yellow.100', 'yellow.600');
     const color = useColorModeValue('brand.black', 'yellow.400');
+
     return (
         <Container>
             <Header />
@@ -52,22 +53,26 @@ function ProjectDetail() {
                     src={project.state.fields.coverImage.fields.file.url}
                     objectFit='cover'
                 />
-                <Stack direction={['column', 'row']}>
+                <HStack>
                     {project.state.fields.projectTags.map((tag) => (
-                        <Link href={tag.fields.url}>
+                        <Link key={tag.fields.url} href={tag.fields.url}>
                             <Tag
-                                _hover={{ color: 'brand.yellow' }}
-                                variant='subtle'
-                                p={2}
+                                size='sm'
+                                variant='outline'
+                                _hover={{
+                                    borderColor: 'brand.yellow',
+                                    bg: tagHover,
+                                }}
                             >
                                 {tag.fields.name}
                             </Tag>
                         </Link>
                     ))}
-                </Stack>
+                </HStack>
                 <HStack py='1rem' w='100%'>
                     {project.state.fields.projectGithub.map((git) => (
                         <Link
+                            key={git}
                             isExternal
                             display='flex'
                             href={git}
@@ -97,7 +102,7 @@ function ProjectDetail() {
                     spacingY='20px'
                 >
                     {project.state.fields.projectImages.map((image) => (
-                        <Box>
+                        <Box key={image.fields.file.url}>
                             <Image
                                 borderRadius='md'
                                 src={image.fields.file.url}
