@@ -15,11 +15,12 @@ import {
     CircularProgress,
     Flex,
     Center,
+    Link,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import ProjectTags from './ProjectTags';
 import Loading from '../../components/Loading';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const ProjectsList = () => {
     const dispatch = useDispatch();
@@ -53,8 +54,10 @@ const ProjectsList = () => {
                         {projects.map((project) => (
                             <Box key={project.fields.projectTitle}>
                                 <Link
+                                    as={RouterLink}
                                     to={`/projects/${project.fields.projectSlug}`}
                                     state={project}
+                                    _hover={{ textDecoration: 'none' }}
                                 >
                                     <Image
                                         borderRadius='md'
@@ -64,24 +67,24 @@ const ProjectsList = () => {
                                         }
                                         fallback={<Loading />}
                                     />
+                                    <HStack pt='1rem' spacing='4px'>
+                                        {project.fields.projectTags
+                                            .slice(0, 4)
+                                            .map((tag, i) => (
+                                                <Tag
+                                                    key={tag.fields.name}
+                                                    variant='ghost'
+                                                    size='sm'
+                                                    color={tagColor[i]}
+                                                >
+                                                    {tag.fields.name}
+                                                </Tag>
+                                            ))}
+                                    </HStack>
+                                    <Heading as='h2' size='md'>
+                                        {project.fields.projectTitle}
+                                    </Heading>
                                 </Link>
-                                <HStack pt='1rem' spacing='4px'>
-                                    {project.fields.projectTags
-                                        .slice(0, 4)
-                                        .map((tag, i) => (
-                                            <Tag
-                                                key={tag.fields.name}
-                                                variant='ghost'
-                                                size='sm'
-                                                color={tagColor[i]}
-                                            >
-                                                {tag.fields.name}
-                                            </Tag>
-                                        ))}
-                                </HStack>
-                                <Heading as='h2' size='md'>
-                                    {project.fields.projectTitle}
-                                </Heading>
                             </Box>
                         ))}
                     </SimpleGrid>
