@@ -5,12 +5,14 @@ import {
     selectAllProjects,
     fetchTags,
 } from './projectsSlice';
+import { renderDate } from '../../utils/helper';
 import {
     SimpleGrid,
     Image,
     Box,
     Heading,
     Tag,
+    Text,
     HStack,
     CircularProgress,
     Flex,
@@ -81,9 +83,20 @@ const ProjectsList = () => {
                                                 </Tag>
                                             ))}
                                     </HStack>
-                                    <Heading as='h2' size='md'>
-                                        {project.fields.projectTitle}
-                                    </Heading>
+                                    <Flex
+                                        alignItems='baseline'
+                                        justifyContent='space-evenly'
+                                    >
+                                        <Heading as='h2' size='md'>
+                                            {project.fields.projectTitle}
+                                        </Heading>
+                                        <Text fontSize='sm' pl={2}>
+                                            •{' '}
+                                            {renderDate(
+                                                project.fields.projectDate
+                                            )}
+                                        </Text>
+                                    </Flex>
                                 </Link>
                             </Box>
                         ))}
@@ -96,7 +109,7 @@ const ProjectsList = () => {
     }
 
     return (
-        <Box maxW='1024px' px={10} pt={10} as='section'>
+        <Box maxW='1280px' px={10} pt={10} as='section'>
             {content}
         </Box>
     );
