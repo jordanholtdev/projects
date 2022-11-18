@@ -4,7 +4,7 @@ import {
     fetchProjectsByTag,
     selectTags,
 } from './projectsSlice';
-import { Button, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Button, useColorModeValue, Stack } from '@chakra-ui/react';
 
 const ProjectTags = () => {
     const dispatch = useDispatch();
@@ -19,7 +19,13 @@ const ProjectTags = () => {
     } else if (projectsLoadingStatus === 'succeeded') {
         content = (
             <div>
-                <VStack alignItems='flex-start'>
+                <Stack
+                    alignItems='flex-start'
+                    direction={['row', 'column']}
+                    wrap='wrap'
+                    pb={[2, 1, 0]}
+                    spacing={[0, 2, 2]}
+                >
                     <Button
                         variant='primary'
                         size='sm'
@@ -43,7 +49,7 @@ const ProjectTags = () => {
                             {tag.fields.name}
                         </Button>
                     ))}
-                </VStack>
+                </Stack>
             </div>
         );
     } else if (projectsLoadingStatus === 'failed') {

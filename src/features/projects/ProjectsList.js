@@ -49,7 +49,7 @@ const ProjectsList = () => {
     } else if (projectsLoadingStatus === 'succeeded') {
         content = (
             <>
-                <Flex>
+                <Flex flexDirection={['column', 'row']}>
                     <Box mr={[5, 10, 20]}>
                         <ProjectTags />
                     </Box>
