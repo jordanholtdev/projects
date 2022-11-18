@@ -1,10 +1,12 @@
 import Container from '../../components/Container';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import { renderDate } from '../../utils/helper';
 import { marked } from 'marked';
 import { useLocation } from 'react-router-dom';
 import {
     Heading,
+    Text,
     Flex,
     Image,
     Link,
@@ -33,13 +35,19 @@ function ProjectDetail() {
         <Container>
             <Header />
             <Heading>{project.state.fields.projectTitle}</Heading>
-            <Link
-                isExternal
-                href={project.state.fields.projectUrl}
-                variant='primary'
-            >
-                {project.state.fields.projectUrl} <ExternalLinkIcon mx='2px' />
-            </Link>
+            <Flex alignItems='baseline'>
+                <Link
+                    isExternal
+                    href={project.state.fields.projectUrl}
+                    variant='primary'
+                >
+                    {project.state.fields.projectUrl}{' '}
+                    <ExternalLinkIcon mx='2px' />
+                </Link>
+                <Text fontSize='sm' pl={2}>
+                    • {renderDate(project.state.fields.projectDate)}
+                </Text>
+            </Flex>
             <Flex
                 direction='column'
                 alignItems='center'
