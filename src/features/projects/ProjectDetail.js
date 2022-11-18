@@ -55,12 +55,12 @@ function ProjectDetail() {
                 maxW='820px'
                 px='2rem'
             >
-                <Image
-                    py='2rem'
-                    borderRadius='md'
-                    src={project.state.fields.coverImage.fields.file.url}
-                    objectFit='cover'
-                />
+                <Box py={5}>
+                    <Image
+                        borderRadius='md'
+                        src={project.state.fields.coverImage.fields.file.url}
+                    />
+                </Box>
                 <HStack>
                     {project.state.fields.projectTags.map((tag) => (
                         <Link key={tag.fields.url} href={tag.fields.url}>

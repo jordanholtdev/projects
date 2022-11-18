@@ -5,6 +5,7 @@ import {
     selectAllProjects,
     fetchTags,
 } from './projectsSlice';
+import { motion } from 'framer-motion';
 import { renderDate } from '../../utils/helper';
 import {
     SimpleGrid,
@@ -61,14 +62,19 @@ const ProjectsList = () => {
                                     state={project}
                                     _hover={{ textDecoration: 'none' }}
                                 >
-                                    <Image
-                                        borderRadius='md'
-                                        src={
-                                            project.fields.coverImage.fields
-                                                .file.url
-                                        }
-                                        fallback={<Loading />}
-                                    />
+                                    <Box
+                                        as={motion.div}
+                                        whileHover={{ scale: 1.055 }}
+                                    >
+                                        <Image
+                                            borderRadius='md'
+                                            src={
+                                                project.fields.coverImage.fields
+                                                    .file.url
+                                            }
+                                            fallback={<Loading />}
+                                        />
+                                    </Box>
                                     <HStack pt='1rem' spacing='4px'>
                                         {project.fields.projectTags
                                             .slice(0, 4)
@@ -83,10 +89,7 @@ const ProjectsList = () => {
                                                 </Tag>
                                             ))}
                                     </HStack>
-                                    <Flex
-                                        alignItems='baseline'
-                                        justifyContent='space-evenly'
-                                    >
+                                    <Flex alignItems='baseline'>
                                         <Heading as='h2' size='md'>
                                             {project.fields.projectTitle}
                                         </Heading>
