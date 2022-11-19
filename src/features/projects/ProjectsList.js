@@ -19,6 +19,7 @@ import {
     Flex,
     Center,
     Link,
+    useColorModeValue,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import ProjectTags from './ProjectTags';
@@ -36,6 +37,7 @@ const ProjectsList = () => {
     const projects = useSelector(selectAllProjects);
     const projectsLoadingStatus = useSelector(getProjectsLoadingStatus);
     const tagColor = ['blue.500', 'purple.500', 'yellow.500', 'brand.green'];
+    const border = useColorModeValue('1px', 'none');
 
     let content;
     if (projectsLoadingStatus === 'pending') {
@@ -67,6 +69,8 @@ const ProjectsList = () => {
                                         whileHover={{ scale: 1.055 }}
                                     >
                                         <Image
+                                            border={border}
+                                            borderColor='gray.200'
                                             borderRadius='md'
                                             src={
                                                 project.fields.coverImage.fields
