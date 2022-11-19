@@ -10,6 +10,7 @@ import {
     Flex,
     Image,
     Link,
+    Stack,
     HStack,
     useColorModeValue,
     SimpleGrid,
@@ -30,6 +31,7 @@ function ProjectDetail() {
     const hover = useColorModeValue('gray.500', 'yellow.600');
     const tagHover = useColorModeValue('yellow.100', 'yellow.600');
     const color = useColorModeValue('brand.black', 'yellow.400');
+    const border = useColorModeValue('1px', 'none');
 
     return (
         <Container>
@@ -57,11 +59,13 @@ function ProjectDetail() {
             >
                 <Box py={5}>
                     <Image
+                        border={border}
                         borderRadius='md'
+                        borderColor='gray.200'
                         src={project.state.fields.coverImage.fields.file.url}
                     />
                 </Box>
-                <HStack>
+                <Stack direction={['column', 'row']}>
                     {project.state.fields.projectTags.map((tag) => (
                         <Link key={tag.fields.url} href={tag.fields.url}>
                             <Tag
@@ -76,7 +80,7 @@ function ProjectDetail() {
                             </Tag>
                         </Link>
                     ))}
-                </HStack>
+                </Stack>
                 <HStack py='1rem' w='100%'>
                     {project.state.fields.projectGithub.map((git) => (
                         <Link
@@ -102,7 +106,7 @@ function ProjectDetail() {
                     }}
                 ></p>
             </Flex>
-            <Flex maxW='1200px' px='2rem'>
+            <Flex maxW='1400px' px='2rem'>
                 <SimpleGrid
                     py='2rem'
                     columns={[1, 1, 2]}
@@ -112,7 +116,9 @@ function ProjectDetail() {
                     {project.state.fields.projectImages.map((image) => (
                         <Box key={image.fields.file.url}>
                             <Image
+                                border={border}
                                 borderRadius='md'
+                                borderColor='gray.200'
                                 src={image.fields.file.url}
                             />
                         </Box>
