@@ -1,0 +1,11 @@
+services:
+    web:
+        image: 149256189456.dkr.ecr.us-east-1.amazonaws.com/projects-app:latest
+        container_name: web
+        ports:
+            - '80:80'
+        volumes:
+            - ./:/app
+            - /app/node_modules
+        environment:
+            - DEBUG=1
