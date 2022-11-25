@@ -16,9 +16,15 @@ import {
     SimpleGrid,
     Tag,
     Box,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalCloseButton,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { AiFillGithub } from 'react-icons/ai';
+import { useState } from 'react';
 
 marked.setOptions({
     gfm: true,
@@ -27,11 +33,18 @@ marked.setOptions({
 });
 
 function ProjectDetail() {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [modalImage, setModalImage] = useState('');
     let project = useLocation();
     const hover = useColorModeValue('gray.500', 'yellow.600');
     const tagHover = useColorModeValue('yellow.100', 'yellow.600');
     const color = useColorModeValue('brand.black', 'yellow.400');
     const border = useColorModeValue('1px', 'none');
+
+    const handleImageClick = (image) => {
+        setModalImage(image);
+        onOpen();
+    };
 
     return (
         <Container>
@@ -61,7 +74,7 @@ function ProjectDetail() {
                     <Image
                         border={border}
                         borderRadius='md'
-                        borderColor='gray.200'
+                        borderColor='gray.300'
                         src={project.state.fields.coverImage.fields.file.url}
                     />
                 </Box>
@@ -106,7 +119,8 @@ function ProjectDetail() {
                     }}
                 ></p>
             </Flex>
-            <Flex maxW='1400px' px='2rem'>
+
+            <Flex maxW='1600px' px='2rem'>
                 <SimpleGrid
                     py='2rem'
                     columns={[1, 1, 2]}
@@ -118,11 +132,26 @@ function ProjectDetail() {
                             <Image
                                 border={border}
                                 borderRadius='md'
-                                borderColor='gray.200'
+                                borderColor='gray.400'
                                 src={image.fields.file.url}
+                                _hover={{ cursor: 'pointer' }}
+                                onClick={() =>
+                                    handleImageClick(image.fields.file.url)
+                                }
                             />
                         </Box>
                     ))}
+                    <Modal onClose={onClose} isOpen={isOpen} size='full'>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalCloseButton />
+                            <Image
+                                _hover={{ cursor: 'pointer' }}
+                                onClick={() => onClose()}
+                                src={modalImage}
+                            />
+                        </ModalContent>
+                    </Modal>
                 </SimpleGrid>
             </Flex>
             <Footer />
