@@ -27,7 +27,11 @@ const ProjectTags = () => {
                     spacing={[0, 2, 2]}
                 >
                     <Button
-                        variant='primary'
+                        variant='outline'
+                        _hover={{
+                            borderColor: 'brand.yellow',
+                            bg: hover,
+                        }}
                         size='sm'
                         onClick={() => dispatch(fetchProjectsByTag(''))}
                     >
