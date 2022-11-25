@@ -17,7 +17,7 @@ function Header() {
             <Box px='2rem' alignItems='center'>
                 <Heading as='h1'>
                     <Link as={RouterLink} to='/'>
-                        Projects
+                        Jordan Holt - Portfolio
                     </Link>
                 </Heading>
             </Box>
