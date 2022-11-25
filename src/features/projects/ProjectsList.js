@@ -70,7 +70,7 @@ const ProjectsList = () => {
                                     >
                                         <Image
                                             border={border}
-                                            borderColor='gray.200'
+                                            borderColor='gray.400'
                                             borderRadius='md'
                                             src={
                                                 project.fields.coverImage.fields
