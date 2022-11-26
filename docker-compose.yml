@@ -1,6 +1,6 @@
 services:
     web:
-        image: 149256189456.dkr.ecr.us-east-1.amazonaws.com/projects-app:latest
+        image: 'include image URL'
         container_name: web
         ports:
             - '80:80'
