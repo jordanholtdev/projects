@@ -10,7 +10,6 @@ import {
     Flex,
     Image,
     Link,
-    Stack,
     HStack,
     useColorModeValue,
     SimpleGrid,
@@ -50,7 +49,7 @@ function ProjectDetail() {
         <Container>
             <Header />
             <Heading>{project.state.fields.projectTitle}</Heading>
-            <Flex alignItems='baseline'>
+            <Flex alignItems='baseline' flexDirection={['column', 'row']}>
                 <Link
                     isExternal
                     href={project.state.fields.projectUrl}
@@ -59,7 +58,7 @@ function ProjectDetail() {
                     {project.state.fields.projectUrl}{' '}
                     <ExternalLinkIcon mx='2px' />
                 </Link>
-                <Text fontSize='sm' pl={2}>
+                <Text fontSize='sm' pl={[0, 2]}>
                     • {renderDate(project.state.fields.projectDate)}
                 </Text>
             </Flex>
@@ -78,9 +77,14 @@ function ProjectDetail() {
                         src={project.state.fields.coverImage.fields.file.url}
                     />
                 </Box>
-                <Stack direction={['column', 'row']}>
+                <Box>
                     {project.state.fields.projectTags.map((tag) => (
-                        <Link key={tag.fields.url} href={tag.fields.url}>
+                        <Link
+                            key={tag.fields.url}
+                            href={tag.fields.url}
+                            mt='5px'
+                            mx='5px'
+                        >
                             <Tag
                                 size='sm'
                                 variant='outline'
@@ -93,7 +97,7 @@ function ProjectDetail() {
                             </Tag>
                         </Link>
                     ))}
-                </Stack>
+                </Box>
                 <HStack py='1rem' w='100%'>
                     {project.state.fields.projectGithub.map((git) => (
                         <Link
