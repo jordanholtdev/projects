@@ -45,3 +45,17 @@ REACT_APP_ENVIRONMENT=YOUR_ENVIRONMENT
 ```
 $ npm start
 ```
+
+## Build application container image
+
+1. Build container image
+
+```
+docker build -f dockerfile.prod -t my-project:prod .
+```
+
+2. Start the container using `docker run`:
+
+```
+docker run -p 8080:80 my-project:prod
+```
