@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
     getProjectsLoadingStatus,
-    fetchProjectsByTag,
     selectTags,
+    updateSelectedTag,
 } from './projectsSlice';
 import { Button, useColorModeValue, Stack } from '@chakra-ui/react';
 
@@ -33,7 +33,7 @@ const ProjectTags = () => {
                             bg: hover,
                         }}
                         size='sm'
-                        onClick={() => dispatch(fetchProjectsByTag(''))}
+                        onClick={() => dispatch(updateSelectedTag('git'))}
                     >
                         All
                     </Button>
@@ -47,7 +47,7 @@ const ProjectTags = () => {
                             size='sm'
                             key={tag.sys.id}
                             onClick={() =>
-                                dispatch(fetchProjectsByTag(tag.fields.name))
+                                dispatch(updateSelectedTag(tag.fields.name))
                             }
                         >
                             {tag.fields.name}
