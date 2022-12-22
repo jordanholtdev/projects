@@ -1,10 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux';
-import {
-    getProjectsLoadingStatus,
-    fetchProjects,
-    selectAllProjects,
-    fetchTags,
-} from './projectsSlice';
+import { useSelector, shallowEqual } from 'react-redux';
+import { getProjectsLoadingStatus, selectProjectsByTag } from './projectsSlice';
 import { motion } from 'framer-motion';
 import { renderDate } from '../../utils/helper';
 import {
@@ -21,21 +16,12 @@ import {
     Link,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import ProjectTags from './ProjectTags';
 import Loading from '../../components/Loading';
 import { Link as RouterLink } from 'react-router-dom';
 
 const ProjectsList = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchProjects());
-        dispatch(fetchTags());
-    }, [dispatch]);
-
-    const projects = useSelector(selectAllProjects);
     const projectsLoadingStatus = useSelector(getProjectsLoadingStatus);
+    const filterProjects = useSelector(selectProjectsByTag, shallowEqual);
     const tagColor = ['blue.500', 'purple.500', 'yellow.500', 'brand.green'];
     const border = useColorModeValue('1px', 'none');
 
@@ -51,17 +37,14 @@ const ProjectsList = () => {
     } else if (projectsLoadingStatus === 'succeeded') {
         content = (
             <>
-                <Flex flexDirection={['column', 'row']}>
-                    <Box mr={[5, 10, 20]}>
-                        <ProjectTags />
-                    </Box>
+                <Flex>
                     <SimpleGrid columns={[1, 1, 2]} spacing={10}>
-                        {projects.map((project) => (
-                            <Box key={project.fields.projectTitle}>
+                        {filterProjects.map((project) => (
+                            <Box key={project[1].fields.projectTitle}>
                                 <Link
                                     as={RouterLink}
-                                    to={`/projects/${project.fields.projectSlug}`}
-                                    state={project}
+                                    to={`/projects/${project[1].fields.projectSlug}`}
+                                    state={project[1]}
                                     _hover={{ textDecoration: 'none' }}
                                 >
                                     <Box
@@ -73,14 +56,14 @@ const ProjectsList = () => {
                                             borderColor='gray.400'
                                             borderRadius='md'
                                             src={
-                                                project.fields.coverImage.fields
-                                                    .file.url
+                                                project[1].fields.coverImage
+                                                    .fields.file.url
                                             }
                                             fallback={<Loading />}
                                         />
                                     </Box>
                                     <HStack pt='1rem' spacing='4px'>
-                                        {project.fields.projectTags
+                                        {project[1].fields.projectTags
                                             .slice(0, 4)
                                             .map((tag, i) => (
                                                 <Tag
@@ -95,12 +78,12 @@ const ProjectsList = () => {
                                     </HStack>
                                     <Flex alignItems='baseline'>
                                         <Heading as='h2' size='md'>
-                                            {project.fields.projectTitle}
+                                            {project[1].fields.projectTitle}
                                         </Heading>
                                         <Text fontSize='sm' pl={2}>
                                             •{' '}
                                             {renderDate(
-                                                project.fields.projectDate
+                                                project[1].fields.projectDate
                                             )}
                                         </Text>
                                     </Flex>
@@ -115,11 +98,7 @@ const ProjectsList = () => {
         content = <p>failed..</p>;
     }
 
-    return (
-        <Box maxW='1280px' px={10} pt={10} as='section'>
-            {content}
-        </Box>
-    );
+    return <Box>{content}</Box>;
 };
 
 export default ProjectsList;

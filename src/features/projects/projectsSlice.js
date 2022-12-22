@@ -4,6 +4,7 @@ import client from '../../apis/content';
 const initialState = {
     projects: [],
     tags: [],
+    selectedTag: 'git',
     loading: 'idle', // | 'pending' | 'succeeded' | 'failed',
 };
 
@@ -36,7 +37,15 @@ export const fetchTags = createAsyncThunk('projects/fetchTags', async () => {
 const projectsSlice = createSlice({
     name: 'projects',
     initialState,
-    reducers: {},
+    reducers: {
+        updateSelectedTag: (state, action) => {
+            // Redux Toolkit allows us to write "mutating" logic in reducers. It
+            // doesn't actually mutate the state because it uses the immer library,
+            // which detects changes to a "draft state" and produces a brand new
+            // immutable state based off those changes
+            state.selectedTag = action.payload;
+        },
+    },
     extraReducers(builder) {
         builder
             .addCase(fetchProjects.pending, (state, action) => {
@@ -71,17 +80,17 @@ const projectsSlice = createSlice({
             });
     },
 });
-
+export const { updateSelectedTag } = projectsSlice.actions;
 export const selectAllProjects = (state) => state.projects.projects;
 export const selectTags = (state) => state.projects.tags;
 export const getProjectsLoadingStatus = (state) => state.projects.loading;
 
-// export const selectProjectsByTag = (state, tag) => {
-//     return state.projects.projects.map((project) => {
-//         return project.filter((e) =>
-//             e.fields.projectTitle.toLowerCase().includes('crypto')
-//         );
-//     });
-// };
+export const selectProjectsByTag = (state) => {
+    return Object.entries(state.projects.projects).filter((proj) =>
+        proj[1].fields.tagsList.includes(
+            state.projects.selectedTag.toLowerCase()
+        )
+    );
+};
 
 export default projectsSlice.reducer;
