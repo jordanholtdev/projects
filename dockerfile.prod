@@ -14,6 +14,18 @@ RUN npm ci --only=production
 
 # Bundle app source
 COPY . ./
+
+# set the environment variables
+ENV REACT_APP_SPACE_ID=$REACT_APP_SPACE_ID
+ENV REACT_APP_ACCESS_TOKEN=$REACT_APP_ACCESS_TOKEN
+ENV REACT_APP_ENVIRONMENT=$REACT_APP_ENVIRONMENT
+
+# Declare the build-time arguments for the environment variables
+ARG REACT_APP_SPACE_ID
+ARG REACT_APP_ACCESS_TOKEN
+ARG REACT_APP_ENVIRONMENT
+
+# build app for production with minification
 RUN npm run build
 
 FROM nginx:stable-alpine
