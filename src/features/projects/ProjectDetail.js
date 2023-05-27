@@ -28,7 +28,8 @@ import { useState } from 'react';
 marked.setOptions({
     gfm: true,
     breaks: true,
-    smartypants: true,
+    mangle: false,
+    headerIds: false,
 });
 
 function ProjectDetail() {

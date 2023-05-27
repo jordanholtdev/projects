@@ -23,9 +23,9 @@ test('navigating', async () => {
     const user = userEvent.setup();
 
     // verify page content for default route
-    expect(screen.getByText(/Projects/i)).toBeInTheDocument();
+    expect(screen.getByText(/Portfolio/i)).toBeInTheDocument();
 
     // verify page content for expected route after navigating
-    await user.click(screen.getByText(/Projects/i));
-    expect(screen.getByText(/Projects/i)).toBeInTheDocument();
+    await user.click(screen.getByText(/Portfolio/i));
+    expect(screen.getByText(/Portfolio/i)).toBeInTheDocument();
 });
