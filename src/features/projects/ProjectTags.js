@@ -20,7 +20,6 @@ const ProjectTags = () => {
         content = (
             <div>
                 <Stack
-                    w='full'
                     alignItems='flex-start'
                     direction={['row', 'column']}
                     wrap='wrap'

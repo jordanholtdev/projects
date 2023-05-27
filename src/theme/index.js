@@ -77,7 +77,7 @@ const styles = {
     global: (props) => ({
         body: {
             color: mode('gray.800', 'whiteAlpha.900')(props),
-            bg: mode('#ffffff', '#0d1011')(props),
+            bg: mode('#ffffff', '#000000')(props),
         },
         ul: {
             paddingInlineStart: '20px',
