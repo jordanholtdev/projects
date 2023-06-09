@@ -56,7 +56,7 @@ const App = () => {
                     <Box pr={[5, 10, 20]}>
                         <ProjectTags />
                     </Box>
-                    <Box display='block' minW='full'>
+                    <Box display='block'>
                         <ProjectsList />
                     </Box>
                 </Stack>
