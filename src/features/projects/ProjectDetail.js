@@ -8,6 +8,7 @@ import {
     Heading,
     Text,
     Flex,
+    Button,
     Image,
     Link,
     HStack,
@@ -51,14 +52,15 @@ function ProjectDetail() {
             <Header />
             <Heading>{project.state.fields.projectTitle}</Heading>
             <Flex alignItems='baseline' flexDirection={['column', 'row']}>
-                <Link
+                <Button
+                    as={Link}
                     isExternal
                     href={project.state.fields.projectUrl}
                     variant='primary'
                 >
-                    {project.state.fields.projectUrl}{' '}
+                    Live Demo
                     <ExternalLinkIcon mx='2px' />
-                </Link>
+                </Button>
                 <Text fontSize='sm' pl={[0, 2]}>
                     • {renderDate(project.state.fields.projectDate)}
                 </Text>
